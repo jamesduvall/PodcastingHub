@@ -8,23 +8,16 @@ using System.Web.Security;
 
 namespace PodcastingHub.Models
 {
-    public class UsersContext : DbContext
-    {
-        public UsersContext()
-            : base("DefaultConnection")
-        {
-        }
-
-        public DbSet<UserProfile> UserProfiles { get; set; }
-    }
-
     [Table("UserProfile")]
     public class UserProfile
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
+        [EmailAddressAttribute]
         public string UserName { get; set; }
+        public virtual ICollection<Podcast> Podcasts { get; set; }
+        public virtual ICollection<UserProfilePodcastEpisode> UserProfilePodcastEpisodes { get; set; }
     }
 
     public class RegisterExternalLoginModel

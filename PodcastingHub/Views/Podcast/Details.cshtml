@@ -1,0 +1,73 @@
+﻿@model PodcastingHub.Models.Podcast
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+@Html.ActionLink("Refresh", "FetchEpisodes", new { podcastId=Model.PodcastId })
+
+
+<fieldset>
+    <legend>Podcast</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.RSSURI)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.RSSURI)
+    </div>
+    <div data-role="collapsible-set" id="episodes-list">
+        @foreach (PodcastingHub.Models.PodcastEpisode podcastEpisode in Model.Episodes.Take(1))
+        {
+            <div data-role="collapsible" data-filelocation="@podcastEpisode.FileLocation" class="podcast-episode">
+                <h3>@podcastEpisode.Name</h3>
+                <p>
+                    <audio src="@podcastEpisode.FileLocation" controls="controls" preload="metadata"></audio>
+                </p>
+            </div>
+        }
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.PodcastId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('audio').mediaelementplayer();
+            $('.mejs-container').find('*').each(function () {
+                $(this).attr('data-role', 'none');
+            });
+            /*
+            $('mejs-audio').attr('data-role', 'none');
+            $('mejs-audio').find('div').each(function () {
+                $(this).attr('data-role', 'none');
+            });
+            */
+        });
+
+        $(".podcast-episode").bind('expand', function () {
+           
+        }).bind('collapse', function () {
+
+        });
+
+    </script>
+}

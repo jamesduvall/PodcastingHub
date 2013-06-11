@@ -3,3 +3,29 @@
 }
 
 <h2>Index</h2>
+
+@foreach (PodcastingHub.Controllers.TestController.PodcastEpisode episode in ViewBag.Episodes)
+{
+    <li>@episode.Title</li>
+    <audio id="episode1" src="@episode.MP3Location" controls="controls"></audio>
+}
+
+
+<button id="move">Move 10 Seconds</button>
+
+
+@section Scripts {
+    <script type="text/JavaScript">
+
+        $(document).ready(function () {
+            $("#move")
+                .button()
+                .click(function (event) {
+                    var epidsode = $("#episode1").get(0);
+                    epidsode.currentTime += 10;
+                    event.preventDefault();
+                });
+        });
+
+    </script>
+}

@@ -1,0 +1,25 @@
+﻿@model IEnumerable<PodcastingHub.Models.Podcast>
+
+@{
+    ViewBag.Title = "My Podcasts";
+}
+
+<h2>My Podcasts</h2>
+
+<ul id="podcasts" data-role="listview" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+@foreach (var podcast in Model)
+{
+    <li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-first-child ui-btn-hover-c">
+        <div class="ui-btn-inner ui-li">
+            <div class="ui-btn-text">
+                <a href="#" class="ui-link-inherit">
+                    <img src="@podcast.ArtworkURI" alt='@string.Format("Cover art for {0}", @podcast.Name)' /> 
+                    @Html.DisplayFor(modelItem => podcast.Name)
+                    @Html.DisplayFor(modelItem => podcast.Description)
+                </a>
+            </div>
+            <span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span>
+        </div>
+    </li>
+}
+</ul>
